@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>0. Design</title>
+        <title>EdgeEnahnce</title>
         <link type="text/css" href="https://uicdn.toast.com/tui-color-picker/v2.2.6/tui-color-picker.css" rel="stylesheet">
         <link type="text/css" href="../dist/tui-image-editor.css" rel="stylesheet">
         <style>
@@ -10,12 +10,99 @@
             html, body {
                 height: 100%;
                 margin: 0;
+                background-color: #65626f;
             }
+            p {
+                font-family: "Noto Sans"
+            }
+            .tui-image-editor-header {
+                background-color: #151515;
+            }
+            #tui-image-editor-container {
+                display:inline;
+                float:left;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+	            border: 1px solid var(--border-color);
+            }
+            #tui-image-editor-container2 {
+                display:inline;
+                float:left;
+                margin-left: 10px;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+	            border: 1px solid var(--border-color);
+            }
+            #chart1, #chart2 {
+                width:700px;
+                height:500px;
+                display:inline;
+                float:left;
+                background-color: white;
+            }
+            #chart2 {
+                width:700px;
+                height:500px;
+                display:inline;
+                float:left;
+                margin-left: 10px;
+                background-color: white;
+            }
+            section {
+                display: block;
+                margin: 10px auto;
+                padding: 0 10px;
+                max-width: 2100px;
+                overflow: hidden;
+                white-space: nowrap; 
+            }
+
+            #tmpblock {
+                display: inline-block;
+                vertical-align: top;
+                margin-left: 10px;
+                background-color: #1d1d1d;
+                width: 700px;
+                height: 500px;
+            }
+            #tmpblock header {
+                display:block;
+                margin:auto;
+            }
+            #tmpblock img {
+                display:block;
+                margin-top:76px;
+                margin-left:auto;
+                margin-right: auto;
+            }
+            img {
+                margin-left: 10px;
+            }
+            #imgResult {
+                width:450;
+                height:300px;
+            }
+
+img:first-child {
+  margin-left: 0;
+}
         </style>
     </head>
     <body>
-
-        <div id="tui-image-editor-container"></div>
+       
+        <section>
+            <div id="tui-image-editor-container"></div>
+            <div id="tui-image-editor-container2"></div>
+            <div class="tmpblock" id="tmpblock">
+                <div class="header">Header</div>
+                <img id="imgResult" src="img/sampleImage.jpg" />
+            </div>
+            
+         </section>
+        <section>
+       
+            <div class="ct-chart ct-golden-section" id="chart1"></div>
+            <div class="ct-chart ct-golden-section" id="chart2"></div>
+        
+        </section>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.0/fabric.js"></script>
         <script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"></script>
         <script type="text/javascript" src="https://uicdn.toast.com/tui-color-picker/v2.2.6/tui-color-picker.js"></script>
@@ -23,25 +110,68 @@
         <script type="text/javascript" src="../dist/tui-image-editor.js"></script>
         <script type="text/javascript" src="./js/theme/white-theme.js"></script>
         <script type="text/javascript" src="./js/theme/black-theme.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+        <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
         <script>
          // Image editor
          var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
-             includeUI: {
-                 loadImage: {
-                     path: 'img/sampleImage2.png',
-                     name: 'SampleImage'
-                 },
-                 theme: blackTheme, // or whiteTheme
-                 initMenu: 'filter',
-                 menuBarPosition: 'bottom'
-             },
-             cssMaxWidth: 700,
-             cssMaxHeight: 500,
-             usageStatistics: false
+            includeUI: {
+                loadImage: {
+                path: 'img/sampleImage.jpg',
+                name: 'SampleImage'
+            },
+            theme: blackTheme, // or whiteTheme
+            menu: ['draw', 'crop', 'shape', 'filter'],
+            initMenu: 'draw',
+            uiSize: {
+                width: '700px',
+                height: '500px'
+            },
+            menuBarPosition: 'bottom'
+            },
+            cssMaxWidth: 450,
+            cssMaxHeight: 350,
+            selectionStyle: {
+            cornerSize: 20,
+            rotatingPointOffset: 70
+            }
          });
-         window.onresize = function() {
-             imageEditor.ui.resizeEditor();
-         }
+        
+        
+         var imageEditor = new tui.ImageEditor('#tui-image-editor-container2', {
+            includeUI: {
+                loadImage: {
+                path: 'img/sampleImage.jpg',
+                name: 'SampleImage'
+            },
+            theme: blackTheme, // or whiteTheme
+            menu: ['draw', 'crop', 'shape', 'filter'],
+            initMenu: 'draw',
+            uiSize: {
+                width: '700px',
+                height: '500px'
+            },
+            menuBarPosition: 'bottom'
+            },
+            cssMaxWidth: 450,
+            cssMaxHeight: 350,
+            selectionStyle: {
+            cornerSize: 20,
+            rotatingPointOffset: 70
+            }
+         });
+
+         // Initialize a Line chart in the container with the ID chart1
+  new Chartist.Line('#chart1', {
+    labels: [1, 2, 3, 4],
+    series: [[100, 120, 180, 200]]
+  });
+
+  // Initialize a Line chart in the container with the ID chart2
+  new Chartist.Bar('#chart2', {
+    labels: [1, 2, 3, 4],
+    series: [[5, 2, 8, 3]]
+  });
         </script>
     </body>
 </html>

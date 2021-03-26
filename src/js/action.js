@@ -112,17 +112,33 @@ export default {
                 ));
             },
             download: () => {
-                const dataURL = this.toDataURL();
+                let dataURL = this.toDataURL();
                 let imageName = this.getImageName();
                 let blob, type, w;
-
+                const url = 'http://143.248.159.124:8000/image';
                 if (isSupportFileApi() && window.saveAs) {
                     blob = base64ToBlob(dataURL);
                     type = blob.type.split('/')[1];
                     if (imageName.split('.').pop() !== type) {
                         imageName += `.${type}`;
                     }
-                    saveAs(blob, imageName); // eslint-disable-line
+                    dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
+                    const payload = {
+                        filename: 'input.png',
+                        inputFileName: 'input.png',
+                        imgBase64: dataURL
+                    };
+                    fetch(url, {
+                        method: 'POST',
+                        headers: [
+                            ['Content-Type', 'application/json'],
+                            ['Accept', 'application/json'],
+                            ['Access-Control-Allow-Origin', 'true']
+                        ],
+                        body: JSON.stringify(payload)
+                    }).then(data => {
+                        console.log(data);
+                    });
                 } else {
                     w = window.open();
                     w.document.body.innerHTML = `<img src='${dataURL}'>`;

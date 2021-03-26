@@ -41,7 +41,7 @@
     "jasmine-jquery": "^2.1.1",
     "jquery": "^3.4.0",
     "jsdoc": "^3.5.4",
-    "karma": "^4.4.1",
+    "karma": "^6.1.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^2.0.1",
     "karma-edge-launcher": "^0.4.2",
@@ -68,7 +68,7 @@
     "tslint": "^5.12.0",
     "tui-jsdoc-template": "^1.0.4",
     "typescript": "^3.2.2",
-    "uglifyjs-webpack-plugin": "^2.2.0",
+    "uglifyjs-webpack-plugin": "^1.1.2",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
@@ -85,8 +85,13 @@
     "tslint": "tslint index.d.ts"
   },
   "dependencies": {
+    "ag-grid-community": "^25.1.0",
+    "ag-grid-react": "^25.1.0",
     "core-js-pure": "^3.6.4",
     "fabric": "3.6.0",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "redux": "^4.0.5",
     "tui-code-snippet": "^1.5.0",
     "tui-color-picker": "^2.2.6"
   }
